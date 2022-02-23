@@ -3,109 +3,59 @@ window.addEventListener("DOMContentLoaded", domLoaded);
 
 function domLoaded() {
    // TODO: Complete the function
-   let userInput;
-   // const p = document.createTextNode('Hello');
    const errorMessage = document.getElementById('errorMessage');
-   // errorMessage.appendChild(p)
-   errorMessage.innerHTML += "";
+   errorMessage.innerHTML = '';
    const convertButton = document.getElementById('convertButton');
    const celBox = document.getElementById('cInput');
    const farBox = document.getElementById('fInput');
+   // const weatherBox = document.getElementById('weatherImage');
 
-   // celBox.addEventListener('click', selectCelBox);
-   // farBox.addEventListener('click', selectFarBox);
-   // celBox.addEventListener('click', selectBox('cel'));
-   // farBox.addEventListener('click', selectBox('far'));
+   convertButton.addEventListener("click", conversion);
+   celBox.addEventListener('input', selectCelBox);
+   farBox.addEventListener('input', selectFarBox);
 
-   // if (!(celBox.value != "" && farBox.value != "") && (celBox.value != "" || farBox.value != "") == true) {
-   //    convertButton.addEventListener("click", conversion);
-   // }
-   if ((celBox.value == "" && farBox.value == "") || (celBox.value != "" && farBox.value != "") == false) {
-      convertButton.addEventListener("click", conversion);
-   }
-   else {
-      celBox.addEventListener('click', selectCelBox);
-      farBox.addEventListener('click', selectFarBox);
-   }
-   
-
-
-   // celBox.value = 'This should not exist';
-   // celBox.addEventListener('select', selectCelBox());
-   // farBox.addEventListener('select', selectFarBox());
-   
-   // let bool = false;
-   // while (bool == false) {
-   //    if (convertButton.addEventListener("click", conversion))
-   //    celBox.addEventListener('focus', selectCelBox());
-   //    farBox.addEventListener('focus', selectFarBox());
-   // }
-
-   // function selectBox(box) {
-   //    if (box == 'cel') {
-   //       farBox.value = '';
-   //    }
-   //    else if (box == 'far') {
-   //       celBox.value = '';
-   //    }
-   // }
 
    function selectCelBox() {
       if (farBox.value != '') {
          farBox.value = '';
+         // celBox.value = '';
       }
-      return farBox.value;
-      // farBox.value = '';
-      // celBox.value = null;
    }
 
    function selectFarBox() {
       if (celBox.value != '') {
          celBox.value = '';
+         // farBox.value = '';
       }
-      return celBox.value;
-      // farBox.value = null;
-      // celBox.value = '';
    }
 
    function conversion() {
-      // bool = true;
-      // userInput = "";
       if (celBox.value != "") {
-         // userInput = parseFloat(celBox.value);
-         // console.log(userInput)
-         if (parseFloat(celBox.value) == NaN){
-            // text = 
-            console.log("This is here")
-            errorMessage.innerHTML += celBox + ' is not a number';
+         if (isNaN(parseFloat(celBox.value))){
+            errorMessage.innerHTML = celBox.value + ' is not a number';
             celBox.value = '';
          }
          else {
-            convertCtoF(userInput);
+            convertCtoF(parseFloat(celBox.value));
          }
       }
       else if (farBox.value != "") {
-         userInput = parseFloat(farBox.value);
-         if (userInput == NaN) {
-            errorMessage.innerHTML += farBox + ' is not a number';
+         if (isNaN(parseFloat(farBox.value))) {
+            errorMessage.innerHTML = farBox.value + ' is not a number';
             farBox.value = '';
          }
          else {
-            convertFtoC(userInput);
+            convertFtoC(farBox.value);
          }
       }
-      // }
-      // domLoaded()
    }
-
-   // convertButton.addEventListener("click", conversion);
-   // domLoaded()
 }
 
 function convertCtoF(degreesCelsius) {
    // TODO: Complete the function
    const farBox = document.getElementById('fInput');
    const weatherBox = document.getElementById('weatherImage');
+   const errorMessage = document.getElementById('errorMessage');
 
    degreesFahrenheit = (degreesCelsius * (9/5)) + 32;
    farBox.value = degreesFahrenheit;
@@ -118,7 +68,8 @@ function convertCtoF(degreesCelsius) {
    else {
       weatherBox.src = "warm.png";
    }
-   // farBox.addEventListener
+   errorMessage.innerHTML = '';
+   return degreesFahrenheit;
 }
 
 
@@ -126,6 +77,7 @@ function convertFtoC(degreesFahrenheit) {
    // TODO: Complete the function
    const celBox = document.getElementById('cInput');
    const weatherBox = document.getElementById('weatherImage');
+   const errorMessage = document.getElementById('errorMessage');
 
    degreesCelsius = (degreesFahrenheit - 32) * (5/9);
    celBox.value = degreesCelsius;
@@ -138,4 +90,6 @@ function convertFtoC(degreesFahrenheit) {
    else {
       weatherBox.src = "warm.png";
    }
+   errorMessage.innerHTML = '';
+   return degreesCelsius;
 }
